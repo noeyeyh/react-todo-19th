@@ -36,15 +36,11 @@ export default function ToDoList() {
 
   return (
     <Container>
-      <Title>
-        <h1>할 일 목록</h1>
-      </Title>
+      <h1>할 일 목록</h1>
       <InputForm value={value} setValue={setValue} onAddToDo={addToDo} />
       <Subtitle>
         <TodayDate />
-        <h3>
-          {completedItems}/{totalItems}
-        </h3>
+        {completedItems}/{totalItems}
       </Subtitle>
       <List toDoData={toDoData} setToDoData={setToDoData} />
     </Container>
