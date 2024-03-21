@@ -7,12 +7,24 @@ import greenCheckBtn from '../assets/img/greenCheck.svg';
 const ToDoBlock = styled.div`
   background-color: white;
   border-radius: 10px;
-  max-width: 375px;
-  height: 510px;
+  width: 100%;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   overflow-y: auto;
+
+  /* 웹킷 기반 브라우저를 위한 스타일 */
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  /* 파이어폭스 브라우저를 위한 스타일 */
+  scrollbar-width: thin;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const ItemContainer = styled.div`
@@ -21,6 +33,7 @@ const ItemContainer = styled.div`
   align-items: center;
   padding: 10px 10px 10px 30px;
   position: relative;
+  font-size: 1.5em;
   text-decoration: ${(props) => (props.completed ? 'line-through' : 'none')};
 
   &::after {

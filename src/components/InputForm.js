@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import plusImg from '../assets/img/plus.svg';
 
@@ -8,8 +8,7 @@ const InputStyle = styled.input`
   outline: none;
   border-radius: 10px;
   padding: 5px 5px 5px 30px; /*텍스트와 이미지 겹침 방지를 위한 패딩 조정*/
-  width: 340px;
-  height: 20px;
+  width: 100%;
   line-height: 20px;
   cursor: pointer;
 
@@ -17,6 +16,10 @@ const InputStyle = styled.input`
   background-position: 5px center; /*이미지 위치 조정*/
   background-repeat: no-repeat;
   background-size: 20px 20px;
+
+  ::placeholder {
+    font-size: 1px;
+  }
 `;
 
 export default function InputForm({ value, setValue, onAddToDo }) {

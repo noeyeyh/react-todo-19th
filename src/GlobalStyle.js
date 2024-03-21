@@ -15,14 +15,17 @@ const GlobalStyles = createGlobalStyle`
         margin: 0;
         padding: 0;
         border: 0;
-        font-size: 10px;
+        font-size: 90%;
         vertical-align: baseline;
     }
     body{
-        line-height: 1;
         font-family: pretendard;
-        background-color: #F6F9F0;
-        margin-bottom: 100px;
+        background-color: rgb(231, 244, 253);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
     }
     ol, ul{
         list-style: none;
