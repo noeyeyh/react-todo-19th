@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import deleteBtn from '../assets/img/trash.svg';
 import grayCheckBtn from '../assets/img/grayCheck.svg';
+import greenCheckBtn from '../assets/img/greenCheck.svg';
 
 const ToDoBlock = styled.div`
   background-color: white;
@@ -20,6 +21,7 @@ const ItemContainer = styled.div`
   align-items: center;
   padding: 10px 10px 10px 30px;
   position: relative;
+  text-decoration: ${(props) => (props.completed ? 'line-through' : 'none')};
 
   &::after {
     content: ''; /* 가상 요소에 내용이 없음을 명시 */
@@ -51,21 +53,35 @@ const CheckButtonImg = styled.img`
 
 export default function List({ toDoData, setToDoData }) {
   const handleClick = (id) => {
-    let newToDoData = toDoData.filter((data) => data.id !== id);
+    let newToDoData = toDoData.filter((item) => item.id !== id);
+    setToDoData(newToDoData);
+  };
+
+  const handleComplete = (id) => {
+    let newToDoData = toDoData.map((item) => {
+      if (item.id === id) {
+        return { ...item, completed: !item.completed };
+      }
+      return item;
+    });
     setToDoData(newToDoData);
   };
 
   return (
     <ToDoBlock>
-      {toDoData.map((data) => (
-        <ItemContainer key={data.id}>
-          {data.title}
+      {toDoData.map((item) => (
+        <ItemContainer key={item.id} completed={item.completed}>
+          {item.title}
           <ButtonsContainer>
-            <CheckButtonImg src={grayCheckBtn} alt="회색 체크 버튼" />
+            <CheckButtonImg
+              src={item.completed ? greenCheckBtn : grayCheckBtn}
+              alt="회색 체크 버튼"
+              onClick={() => handleComplete(item.id)}
+            />
             <DeleteButtonImg
               src={deleteBtn}
               alt="삭제 버튼"
-              onClick={() => handleClick(data.id)}
+              onClick={() => handleClick(item.id)}
             />
           </ButtonsContainer>
         </ItemContainer>

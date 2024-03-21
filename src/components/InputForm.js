@@ -19,9 +19,7 @@ const InputStyle = styled.input`
   background-size: 20px 20px;
 `;
 
-export default function InputForm({ onAddTodo }) {
-  const [value, setValue] = useState('');
-
+export default function InputForm({ value, setValue, onAddToDo }) {
   const handleInput = (event) => {
     setValue(event.target.value);
   };
@@ -29,7 +27,7 @@ export default function InputForm({ onAddTodo }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!value.trim()) return; // 공백 입력 방지
-    onAddTodo(value);
+    onAddToDo(value);
     setValue('');
   };
 

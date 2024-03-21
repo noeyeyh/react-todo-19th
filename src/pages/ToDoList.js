@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import greenCheckBtn from '../assets/img/greenCheck.svg';
-import ToDoInput from '../components/InputForm';
+import InputForm from '../components/InputForm';
 import List from '../components/List';
+import TodayDate from '../components/TodayDate';
 
 const Container = styled.div`
   margin: auto;
@@ -13,12 +13,18 @@ const Container = styled.div`
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11);
 `;
 
-const Title = styled.div``;
-
+const Subtitle = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
 export default function ToDoList() {
   const [toDoData, setToDoData] = useState([]);
+  const [value, setValue] = useState('');
+  let totalItems = toDoData.length;
+  let completedItems = toDoData.filter((item) => item.completed).length;
 
-  const addTodo = (newToDoTitle) => {
+  const addToDo = (newToDoTitle) => {
     let newToDo = {
       id: Date.now(),
       title: newToDoTitle,
@@ -31,9 +37,15 @@ export default function ToDoList() {
   return (
     <Container>
       <Title>
-        <h1>할일 목록</h1>
+        <h1>할 일 목록</h1>
       </Title>
-      <ToDoInput onAddTodo={addTodo} />
+      <InputForm value={value} setValue={setValue} onAddToDo={addToDo} />
+      <Subtitle>
+        <TodayDate />
+        <h3>
+          {completedItems}/{totalItems}
+        </h3>
+      </Subtitle>
       <List toDoData={toDoData} setToDoData={setToDoData} />
     </Container>
   );
