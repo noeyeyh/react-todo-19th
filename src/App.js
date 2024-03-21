@@ -1,9 +1,13 @@
-function App() {
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ToDoList from './pages/ToDoList';
+
+export default function App() {
   return (
-    <div className="App">
-      <h1>CEOS 19기 프론트엔드 파이팅!( ¨̮ )و✧🔥</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ToDoList />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;
