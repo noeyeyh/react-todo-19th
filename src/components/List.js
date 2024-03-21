@@ -68,6 +68,7 @@ export default function List({ toDoData, setToDoData }) {
   const handleClick = (id) => {
     let newToDoData = toDoData.filter((item) => item.id !== id);
     setToDoData(newToDoData);
+    localStorage.setItem('toDoData', JSON.stringify(newToDoData));
   };
 
   const handleComplete = (id) => {
@@ -78,6 +79,7 @@ export default function List({ toDoData, setToDoData }) {
       return item;
     });
     setToDoData(newToDoData);
+    localStorage.setItem('toDoData', JSON.stringify(newToDoData));
   };
 
   return (

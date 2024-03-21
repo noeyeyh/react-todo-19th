@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import InputForm from '../components/InputForm';
 import List from '../components/List';
@@ -35,8 +35,10 @@ const Subtitle = styled.div`
     margin-bottom: 10px;
   }
 `;
+
 export default function ToDoList() {
-  const [toDoData, setToDoData] = useState([]);
+  const savedToDos = JSON.parse(localStorage.getItem('toDoData') || '[]'); // 로컬 스토리지에서 불러오기
+  const [toDoData, setToDoData] = useState(savedToDos);
   const [value, setValue] = useState('');
   let totalItems = toDoData.length;
   let completedItems = toDoData.filter((item) => item.completed).length;
@@ -49,6 +51,7 @@ export default function ToDoList() {
     };
 
     setToDoData((prev) => [...prev, newToDo]); // 새로운 할 일을 할 일 목록에 추가
+    localStorage.setItem('toDoData', JSON.stringify([...toDoData, newToDo]));
   };
 
   return (
