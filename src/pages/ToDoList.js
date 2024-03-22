@@ -19,8 +19,12 @@ const Container = styled.div`
 
 const Title = styled.h1`
   margin: 10px 0;
-  font-size: 2.7em;
+  font-size: 2.5em;
   font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 2em;
+  }
 `;
 
 const Subtitle = styled.div`
@@ -29,10 +33,14 @@ const Subtitle = styled.div`
   align-items: center;
 
   h3 {
-    font-size: 1.8em;
+    font-size: 1.3em;
     font-weight: 700;
     margin-top: 20px;
     margin-bottom: 10px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1em;
   }
 `;
 
@@ -43,6 +51,12 @@ export default function ToDoList() {
   let totalItems = toDoData.length;
   let completedItems = toDoData.filter((item) => item.completed).length;
 
+  // toDoData 수정 시 로컬 스토리지에 저장
+  useEffect(() => {
+    localStorage.setItem('toDoData', JSON.stringify(toDoData));
+  }, [toDoData]);
+
+  // 새로운 할 일 객체를 생성하고 현재 할 일 목록에 추가하는 함수로 InputForm 컴포넌트에 prop으로 전달
   const addToDo = (newToDoTitle) => {
     let newToDo = {
       id: Date.now(),
@@ -51,7 +65,6 @@ export default function ToDoList() {
     };
 
     setToDoData((prev) => [...prev, newToDo]); // 새로운 할 일을 할 일 목록에 추가
-    localStorage.setItem('toDoData', JSON.stringify([...toDoData, newToDo]));
   };
 
   return (

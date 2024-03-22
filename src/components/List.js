@@ -33,17 +33,27 @@ const ItemContainer = styled.div`
   align-items: center;
   padding: 10px 10px 10px 30px;
   position: relative;
-  font-size: 1.5em;
-  text-decoration: ${(props) => (props.completed ? 'line-through' : 'none')};
 
   &::after {
     content: ''; /* 가상 요소에 내용이 없음을 명시 */
-    position: absolute; /* 상위 요소인 ItemContainer에 대해 절대 위치 설정 */
-    bottom: 0; /* 하단에 위치 */
-    left: 0; /* 왼쪽 시작점 */
+    position: absolute;
+    bottom: 0;
+    left: 0;
     width: calc(100% - 30px); /* 전체 너비에서 20px만큼 줄임 */
-    margin-left: 30px; /* 왼쪽 여백 설정 */
-    border-bottom: 1px solid #ccc; /* 하단 테두리 스타일 */
+    margin-left: 30px;
+    border-bottom: 1px solid #ccc;
+  }
+`;
+
+const TextContainer = styled.div`
+  width: 85%;
+  font-size: 1.2em;
+  text-decoration: ${(props) => (props.completed ? 'line-through' : 'none')};
+  word-wrap: break-word;
+  white-space: normal;
+
+  @media (max-width: 768px) {
+    font-size: 1em;
   }
 `;
 
@@ -65,12 +75,12 @@ const CheckButtonImg = styled.img`
 `;
 
 export default function List({ toDoData, setToDoData }) {
-  const handleClick = (id) => {
+  const handleDelete = (id) => {
     let newToDoData = toDoData.filter((item) => item.id !== id);
     setToDoData(newToDoData);
-    localStorage.setItem('toDoData', JSON.stringify(newToDoData));
   };
 
+  // 할 일 목록의 완료 상태 변경하는 함수
   const handleComplete = (id) => {
     let newToDoData = toDoData.map((item) => {
       if (item.id === id) {
@@ -79,14 +89,13 @@ export default function List({ toDoData, setToDoData }) {
       return item;
     });
     setToDoData(newToDoData);
-    localStorage.setItem('toDoData', JSON.stringify(newToDoData));
   };
 
   return (
     <ToDoBlock>
       {toDoData.map((item) => (
-        <ItemContainer key={item.id} completed={item.completed}>
-          {item.title}
+        <ItemContainer key={item.id}>
+          <TextContainer completed={item.completed}>{item.title}</TextContainer>
           <ButtonsContainer>
             <CheckButtonImg
               src={item.completed ? greenCheckBtn : grayCheckBtn}
@@ -96,7 +105,7 @@ export default function List({ toDoData, setToDoData }) {
             <DeleteButtonImg
               src={deleteBtn}
               alt="삭제 버튼"
-              onClick={() => handleClick(item.id)}
+              onClick={() => handleDelete(item.id)}
             />
           </ButtonsContainer>
         </ItemContainer>

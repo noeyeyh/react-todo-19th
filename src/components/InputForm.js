@@ -16,20 +16,21 @@ const InputStyle = styled.input`
   background-position: 5px center; /*이미지 위치 조정*/
   background-repeat: no-repeat;
   background-size: 20px 20px;
-
-  ::placeholder {
-    font-size: 1px;
-  }
 `;
 
 export default function InputForm({ value, setValue, onAddToDo }) {
+  //입력 필드의 입력값 상태 업데이트하는 함수
   const handleInput = (event) => {
     setValue(event.target.value);
   };
 
+  //폼 제출 시 입력데이터 처리하는 함수
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!value.trim()) return; // 공백 입력 방지
+    if (!value.trim()) {
+      alert('공백 없이 입력해주세요.');
+      return;
+    }
     onAddToDo(value);
     setValue('');
   };

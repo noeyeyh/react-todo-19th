@@ -11,7 +11,6 @@ export default function TodayDate() {
     '금요일',
     '토요일',
   ];
-
   const date = `${today.getFullYear()}-${(today.getMonth() + 1)
     .toString()
     .padStart(2, '0')}-${today.getDate().toString().padStart(2, '0')}`;
