@@ -99,7 +99,6 @@ const CheckButtonImg = styled.img`
 
 // React.memo를 사용하여 컴포넌트의 불필요한 렌더링을 방지
 export default React.memo(function List({ toDoData, setToDoData }) {
-  console.log('List component');
   const [showButtons, setShowButtons] = useState(false);
   const [selectedTextId, setSelectedTextId] = useState(null);
 

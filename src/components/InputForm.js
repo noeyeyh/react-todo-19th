@@ -19,7 +19,6 @@ const InputStyle = styled.input`
 `;
 
 export default function InputForm({ value, setValue, onAddToDo }) {
-  console.log('InputForm component');
   //입력 필드의 입력값 상태 업데이트하는 함수
   const handleInput = (event) => {
     setValue(event.target.value);
