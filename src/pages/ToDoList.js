@@ -40,11 +40,14 @@ const Subtitle = styled.div`
   }
 
   @media (max-width: 768px) {
-    font-size: 1em;
+    h3 {
+      font-size: 0.8em;
+    }
   }
 `;
 
 export default function ToDoList() {
+  console.log('ToDoList component');
   const savedToDos = JSON.parse(localStorage.getItem('toDoData') || '[]'); // 로컬 스토리지에서 불러오기
   const [toDoData, setToDoData] = useState(savedToDos);
   const [value, setValue] = useState('');

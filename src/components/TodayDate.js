@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function TodayDate() {
+  console.log('TodayDate component');
   const today = new Date();
   const days = [
     '일요일',

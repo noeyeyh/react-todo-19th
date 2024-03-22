@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import plusImg from '../assets/img/plus.svg';
 
 const InputStyle = styled.input`
-  background-color: #d9d9d9d9;
+  background-color: #d9d9d9;
   border: none;
   outline: none;
   border-radius: 10px;
   padding: 5px 5px 5px 30px; /*텍스트와 이미지 겹침 방지를 위한 패딩 조정*/
   width: 100%;
   line-height: 20px;
-  cursor: pointer;
+  cursor: text;
 
   background-image: url('${plusImg}');
   background-position: 5px center; /*이미지 위치 조정*/
@@ -19,6 +19,7 @@ const InputStyle = styled.input`
 `;
 
 export default function InputForm({ value, setValue, onAddToDo }) {
+  console.log('InputForm component');
   //입력 필드의 입력값 상태 업데이트하는 함수
   const handleInput = (event) => {
     setValue(event.target.value);
