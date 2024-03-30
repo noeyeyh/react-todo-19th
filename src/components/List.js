@@ -34,19 +34,21 @@ const ItemContainer = styled.div`
   align-items: center;
   padding: 10px 10px 10px 30px;
   position: relative;
-  min-height: 40px; /* 버튼 컨테이너 상관없이 일관된 높이 */
+  min-height: 40px; // 버튼 컨테이너 상관없이 일관된 높이 
+  overflow-y: auto; // 각 항목별 스크롤바 생성
+  overflow-x: hidden;
 
   &::after {
-    content: ''; /* 가상 요소에 내용이 없음을 명시 */
+    content: ''; // 가상 요소에 내용이 없음을 명시
     position: absolute;
     bottom: 0;
     left: 0;
-    width: calc(100% - 30px); /* 전체 너비에서 30px만큼 줄임 */
+    width: calc(100% - 30px); // 전체 너비에서 30px만큼 줄임 
     margin-left: 30px;
     border-bottom: 1px solid #ccc;
   }
 
-  css @media (max-width: 768px) {
+  @media (max-width: 768px) {
     padding: 5px; 5px; 5px; 15px;
     &::after {
       width: calc(100% - 20px);
@@ -116,19 +118,17 @@ export default React.memo(function List({ toDoData, setToDoData }) {
 
   // 할 일 목록 삭제하는 함수
   const handleDelete = (id) => {
-    let newToDoData = toDoData.filter((item) => item.id !== id);
+    const newToDoData = toDoData.filter((item) => item.id !== id);
     setToDoData(newToDoData);
   };
 
   // 할 일 목록의 완료 상태 변경하는 함수
   const handleComplete = (id) => {
-    let newToDoData = toDoData.map((item) => {
-      if (item.id === id) {
-        return { ...item, completed: !item.completed };
-      }
-      return item;
-    });
-    setToDoData(newToDoData);
+    setToDoData((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, completed: !item.completed } : item
+      )
+    );
   };
 
   return (
@@ -136,7 +136,7 @@ export default React.memo(function List({ toDoData, setToDoData }) {
       {toDoData.map((item) => (
         <ItemContainer key={item.id}>
           <TextContainer
-            completed={item.completed}
+            $completed={item.completed}
             onClick={() => handleTextClick(item.id)}
           >
             {item.title}
@@ -144,11 +144,13 @@ export default React.memo(function List({ toDoData, setToDoData }) {
           {selectedTextId === item.id && showButtons && (
             <ButtonsContainer>
               <CheckButtonImg
+                type="button"
                 src={item.completed ? greenCheckBtn : grayCheckBtn}
                 alt="회색 체크 버튼"
                 onClick={() => handleComplete(item.id)}
               />
               <DeleteButtonImg
+                type="button"
                 src={deleteBtn}
                 alt="삭제 버튼"
                 onClick={() => handleDelete(item.id)}

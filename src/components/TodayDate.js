@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function TodayDate() {
   const today = new Date();
   const days = [

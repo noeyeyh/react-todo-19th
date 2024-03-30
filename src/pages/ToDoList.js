@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import InputForm from '../components/InputForm';
 import List from '../components/List';
@@ -49,9 +49,8 @@ const Subtitle = styled.div`
 export default function ToDoList() {
   const savedToDos = JSON.parse(localStorage.getItem('toDoData') || '[]'); // 로컬 스토리지에서 불러오기
   const [toDoData, setToDoData] = useState(savedToDos);
-  const [value, setValue] = useState('');
-  let totalItems = toDoData.length;
-  let completedItems = toDoData.filter((item) => item.completed).length;
+  const totalItems = toDoData.length;
+  const completedItems = toDoData.filter((item) => item.completed).length;
 
   // toDoData 수정 시 로컬 스토리지에 저장
   useEffect(() => {
@@ -72,7 +71,7 @@ export default function ToDoList() {
   return (
     <Container>
       <Title>To-Do-List</Title>
-      <InputForm value={value} setValue={setValue} onAddToDo={addToDo} />
+      <InputForm onAddToDo={addToDo} />
       <Subtitle>
         <TodayDate />
         <h3>
